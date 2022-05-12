@@ -45,8 +45,7 @@ pub unsafe extern "C" fn puts(unused: u32, message: *const u8) {
 #[macro_export]
 macro_rules! println {
     ($fmt: expr, $($args: expr),*) => {{
-        // TODO: figure out a way to not have to import those crates with these names in user code.
-        let string = alloc::format!($fmt, $($args),*);
-        unsafe { luma_core::puts(0, string.as_ptr()) };
+        let string = ::alloc::format!($fmt, $($args),*);
+        unsafe { $crate::puts(0, string.as_ptr()) };
     }}
 }
